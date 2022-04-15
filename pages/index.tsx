@@ -2,13 +2,10 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 
 const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1 className="text-red-600">Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
+  <Layout title="Essay">
+    <h1 className="flex w-2/3 h-32 m-auto bg-slate-200 items-center justify-center">
+      Essay Card
+    </h1>
   </Layout>
 );
 
