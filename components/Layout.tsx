@@ -50,7 +50,7 @@ const Layout = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <nav className="p-8 flex mb-12">
+        <nav className="p-8 flex mb-5">
           <Link href="/">
             <a className="flex items-center text-slate-800 text-3xl tracking-widest font-light">
               ESSAY

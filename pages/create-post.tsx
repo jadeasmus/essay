@@ -49,8 +49,9 @@ export default function createPost() {
   return (
     <Layout>
       <div className="mx-10">
-        <h1 className="text-2xl pb-5">Create new post</h1>
+        <h1 className="text-2xl pb-5">Post New Essay</h1>
         <input
+          className="border-2 rounded-md w-full text-xl p-1 mb-4"
           type="text"
           name="title"
           placeholder="Title"
@@ -63,7 +64,11 @@ export default function createPost() {
             setPost({ ...post, content: value });
           }}
         />
-        <button type="button" onClick={createNewPost}>
+        <button
+          type="button"
+          onClick={createNewPost}
+          className="text-lg bg-slate-200 px-2 py-1 rounded-sm"
+        >
           Create Post
         </button>
       </div>
