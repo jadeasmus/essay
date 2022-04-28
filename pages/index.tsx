@@ -22,7 +22,23 @@ const IndexPage = () => {
   if (loading) return <div className="text-lg">Loading...</div>;
   if (!posts.length) return <div className="text-lg">No posts</div>;
 
-  return <Layout title="Essay">{/* Posts */}</Layout>;
+  return (
+    <Layout title="Essay">
+      {/* Posts */}
+      {posts.map((post) => (
+        <Link key={post.id} href={`/posts/${post.id}`}>
+          <a className="flex justify-center">
+            <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-2/3 mt-8">
+              <h1 className="text-xl">{post.title}</h1>
+              <p className="text-md font-extralight mt-4">
+                author: {post.user_email}
+              </p>
+            </div>
+          </a>
+        </Link>
+      ))}
+    </Layout>
+  );
 };
 
 export default IndexPage;

@@ -14,14 +14,23 @@ export default function Post({ post }) {
   }
 
   return (
-    <div>
-      <h1>{post.title}</h1>
-      <p>{post.user_email}</p>
-      <div className="">
-        {/* Allows for string of md to be rendered */}
-        <ReactMarkdown className="prose" children={post.content} />
+    <Layout title={`Essay | ${post.title}`}>
+      <div className="m-5">
+        <div className="flex justify-center">
+          <div className="bg-slate-200 rounded-sm w-2/3 py-4">
+            <h1 className="text-center text-3xl">{post.title}</h1>
+            <p className="font-extralight text-lg mt-2 pl-8">{`author: ${post.user_email}`}</p>
+            <p className="font-extralight text-lg mt-2 pl-8">{`date: ${
+              post.inserted_at.split("T")[0]
+            }`}</p>
+          </div>
+        </div>
+        <div className="mt-16 mx-16 rounded-sm h-screen">
+          {/* Allows for string of md to be rendered */}
+          <ReactMarkdown className="prose" children={post.content} />
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
