@@ -10,11 +10,7 @@ export interface LayoutProps {
   title?: string;
 }
 
-async function signInWithEmail() {
-  const { user, session, error } = await supabase.auth.signIn({
-    email: "jadeasmus99@gmail.com",
-  });
-}
+async function signInWithEmail() {}
 
 async function signOut() {
   const { error } = await supabase.auth.signOut();
@@ -26,6 +22,8 @@ const Layout = ({
   title = "This is the default title",
 }: LayoutProps) => {
   const [user, setUser] = useState(null);
+  const [magicLink, setMagicLink] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(async () => {
@@ -42,6 +40,16 @@ const Layout = ({
     setUser(user);
   }
 
+  const onClick = () => {
+    setMagicLink(true);
+  };
+
+  // const handleSubmit = (event) => {
+  //   setEmail(inputEmail);
+  //   console.log(email);
+  //   signInWithEmail(email);
+  // };
+
   return (
     <div>
       <Head>
@@ -49,7 +57,7 @@ const Layout = ({
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header>
+      <header className="">
         <nav className="p-8 flex mb-5">
           <Link href="/">
             <a className="flex items-center text-slate-800 text-3xl tracking-widest font-light">
@@ -60,7 +68,7 @@ const Layout = ({
           {!user ? (
             <Link href="/">
               <a
-                onClick={signInWithEmail}
+                onClick={onClick}
                 className="flex items-center space-x-2 text-slate-800 text-lg border-2 rounded-sm px-2"
               >
                 <span className="">Start Writing</span>
@@ -84,7 +92,40 @@ const Layout = ({
             </div>
           )}
         </nav>
-        {children}
+        {magicLink && !user ? (
+          <div className="mx-auto border-2 border-blue-400 w-1/3 p-4 rounded-sm">
+            <form
+              onSubmit={async () => {
+                const { user, session, error } = await supabase.auth.signIn({
+                  email,
+                });
+                // console.log("email");
+                console.log(error);
+                console.log(email);
+              }}
+              className=" bg-white w-full rounded-sm "
+            >
+              <input
+                type="text"
+                id="email"
+                // value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="email@gmail.com"
+                className="border-2 p-1 mb-2"
+              />
+              <button
+                type="submit"
+                className="ml-4 py-1 px-2 border-2 rounded-sm border-blue-200 bg-blue-100 hover:bg-blue-200"
+              >
+                send
+              </button>
+              <div className="border-b border-2 border-blue-200"></div>
+              <p className="font-extralight mt-2">Sign in with magic link</p>
+            </form>
+          </div>
+        ) : (
+          children
+        )}
       </header>
     </div>
   );
