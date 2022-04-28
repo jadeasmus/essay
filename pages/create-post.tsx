@@ -47,7 +47,7 @@ export default function createPost() {
   };
 
   return (
-    <Layout>
+    <Layout title="New Post">
       <div className="mx-10">
         <h1 className="text-2xl pb-5">Post New Essay</h1>
         <input
