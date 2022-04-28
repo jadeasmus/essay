@@ -68,7 +68,7 @@ const Layout = ({
             </Link>
           ) : (
             <div className="flex space-x-8">
-              <Link href="/newpost">
+              <Link href="/create-post">
                 <a className="flex items-center space-x-2 bg-slate-500 text-white text-lg rounded-sm px-2">
                   <span>Contribute</span>
                 </a>
