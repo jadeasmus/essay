@@ -97,6 +97,11 @@ const Layout = ({
                   <span>Logout</span>
                 </a>
               </Link>
+              <Link href="/account">
+                <a className="flex items-center space-x-2 text-slate-800 text-lg hover:text-slate-600">
+                  <span>Account</span>
+                </a>
+              </Link>
             </div>
           )}
         </nav>
