@@ -26,20 +26,53 @@ export default function account() {
     setPosts(data);
   };
 
+  const deletePost = async (id) => {
+    await supabase.from("posts").delete().match({ id });
+    // refresh posts
+    fetchPosts();
+  };
+
+  const editPost = async (id) => {
+    await supabase.from("posts").delete().match({ id });
+    // refresh posts
+    fetchPosts();
+  };
+
   return (
     <Layout title="Account">
       {posts.map((post, index) => (
-        <Link href={`./pages/${post.id}`}>
-          <a key={index} className="flex justify-center">
-            <div className="flex rounded-sm bg-slate-200 px-10 py-4 w-2/3 mt-8">
-              <h1 className="text-md">{post.title}</h1>
-              <div className="grow"></div>
-              <p className="font-extralight text-md">{`date: ${
-                post.inserted_at.split("T")[0]
-              }`}</p>
+        <div className="flex justify-center w-full">
+          <div className="w-2/3 relative">
+            <Link href={`./pages/${post.id}`}>
+              <a key={index} className="flex justify-center">
+                <div className="flex rounded-sm bg-slate-100 hover:shadow-md px-4 py-4 w-full mt-8 pb-16">
+                  <h1 className="text-md">{post.title}</h1>
+                  <div className="grow"></div>
+                  <p className="font-extralight text-md">{`date: ${
+                    post.inserted_at.split("T")[0]
+                  }`}</p>
+                </div>
+              </a>
+            </Link>
+            <div className="absolute bottom-3 right-5">
+              <button
+                className="border-2 border-blue-400 text-blue-400 rounded-sm px-2 hover:text-white hover:bg-blue-400"
+                onClick={() => deletePost(post.id)}
+              >
+                Delete
+              </button>
             </div>
-          </a>
-        </Link>
+            <div className="absolute bottom-3 right-24">
+              <button
+                className="px-2 hover:text-blue-400"
+                onClick={() => editPost(post.id)}
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        </div>
+        // </div>
       ))}
     </Layout>
   );
