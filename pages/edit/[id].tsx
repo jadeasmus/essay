@@ -7,6 +7,10 @@ import "easymde/dist/easymde.min.css";
 import { supabase } from "../../utils/client";
 import Layout from "../../components/Layout";
 
+interface PostObject {
+  [key: string]: any;
+}
+
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
@@ -50,13 +54,12 @@ export default function edit() {
     <Layout title="Edit Post">
       <div className="mx-10">
         <h1 className="text-2xl pb-5">Edit Post</h1>
+        {/* TODO -- figure out how to make current title show */}
         <input
           className="border-2 rounded-md w-full text-xl p-1 mb-4"
           type="text"
           placeholder="Title"
-          //   value={post.title}
           onChange={onChange}
-          //   onChange={(value) => setPost({ ...post, title: value })}
         />
         <SimpleMDE
           value={post.content}
