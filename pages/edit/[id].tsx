@@ -7,12 +7,6 @@ import "easymde/dist/easymde.min.css";
 import { supabase } from "../../utils/client";
 import Layout from "../../components/Layout";
 
-// FIXME:
-/* 
-  - title doesn't stay during edit
-  - edit doesn't update supabase
-*/
-
 interface PostObject {
   [key: string]: any;
 }

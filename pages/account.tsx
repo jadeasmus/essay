@@ -4,11 +4,6 @@ import Link from "next/link";
 import { supabase } from "../utils/client";
 import Layout from "../components/Layout";
 
-// TO-DO
-// - view works by account
-// - edit works
-// - delete works
-
 export default function account() {
   const [posts, setPosts] = useState([]);
 
@@ -63,7 +58,6 @@ export default function account() {
             </div>
           </div>
         </div>
-        // </div>
       ))}
     </Layout>
   );
