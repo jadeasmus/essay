@@ -45,7 +45,7 @@ export default function edit() {
   if (!post) return null;
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
+    console.log(`name: ${e.target.name}, value: ${e.target.value}`);
     setPost(() => ({ ...post, [e.target.name]: e.target.value }));
   };
 
@@ -67,8 +67,9 @@ export default function edit() {
         <h1 className="text-2xl pb-5">Edit Post</h1>
         <input
           className="border-2 rounded-md w-full text-xl p-1 mb-4"
-          type="text"
+          name="title"
           placeholder="Title"
+          value={post.title}
           onChange={onChange}
         />
         <SimpleMDE

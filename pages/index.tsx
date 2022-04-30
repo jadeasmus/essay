@@ -7,6 +7,7 @@ import { supabase } from "../utils/client";
 
 // FIXME: link is larger than container
 // TODO: make sign in its own component
+// TODO: stay signed in
 
 const IndexPage = () => {
   const [posts, setPosts] = useState([]);
