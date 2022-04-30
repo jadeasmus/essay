@@ -35,10 +35,10 @@ export default function account() {
   return (
     <Layout title="Account">
       {posts.map((post, index) => (
-        <div className="flex justify-center w-full">
+        <div key={index} className="flex justify-center w-full">
           <div className="w-2/3 relative">
             <Link href={`./posts/${post.id}`}>
-              <a key={index} className="flex justify-center">
+              <a className="flex justify-center">
                 <div className="flex rounded-sm bg-slate-100 hover:shadow-md px-4 py-4 w-full mt-8 pb-16">
                   <h1 className="text-md">{post.title}</h1>
                   <div className="grow"></div>

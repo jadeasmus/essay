@@ -7,6 +7,12 @@ import "easymde/dist/easymde.min.css";
 import { supabase } from "../../utils/client";
 import Layout from "../../components/Layout";
 
+// FIXME:
+/* 
+  - title doesn't stay during edit
+  - edit doesn't update supabase
+*/
+
 interface PostObject {
   [key: string]: any;
 }
@@ -22,6 +28,7 @@ export default function edit() {
   const router = useRouter();
   const { id } = router.query; // defaults to {}, way to check if id was fetched
 
+  // gets post associated with id
   useEffect(() => {
     const fetchPost = async () => {
       if (!id) return;
@@ -38,15 +45,19 @@ export default function edit() {
   if (!post) return null;
 
   const onChange = (e) => {
+    console.log(e.target.name, e.target.value);
     setPost(() => ({ ...post, [e.target.name]: e.target.value }));
   };
 
   const updatePost = async () => {
     if (!title || !content) {
-      console.log("no title or content");
+      console.log("title or content required");
       return;
     }
-    await supabase.from("posts").update([{ title, content }]);
+    console.log("post: ", post);
+    await supabase.from("posts").update([{ title, content }]).match({ id });
+
+    // route back to account page after update
     router.push("/account");
   };
 
@@ -54,7 +65,6 @@ export default function edit() {
     <Layout title="Edit Post">
       <div className="mx-10">
         <h1 className="text-2xl pb-5">Edit Post</h1>
-        {/* TODO -- figure out how to make current title show */}
         <input
           className="border-2 rounded-md w-full text-xl p-1 mb-4"
           type="text"

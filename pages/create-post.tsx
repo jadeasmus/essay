@@ -6,16 +6,6 @@ import { supabase } from "../utils/client";
 import "easymde/dist/easymde.min.css";
 import Layout from "../components/Layout";
 
-// CREATING A NEW ROW IN 'POSTS' DB
-// const { data, error } = await supabase.from("posts").insert([
-//   {
-//     title: "hello world",
-//     content: "My first post",
-//     user_id: "some_user_id",
-//     user_email: "myemail@gmail.com",
-//   },
-// ]);
-
 interface PostObject {
   [key: string]: any;
 }

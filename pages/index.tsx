@@ -5,6 +5,9 @@ import { supabase } from "../utils/client";
 
 // displays essays stored in supabase
 
+// FIXME: link is larger than container
+// TODO: make sign in its own component
+
 const IndexPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
