@@ -36,23 +36,25 @@ const IndexPage = () => {
 
   return (
     <Layout title="Essay">
-      {/* Posts */}
-      {posts.map((post) => (
-        <div key={post.id} className="flex justify-center w-full">
-          <div className="w-2/3">
-            <Link href={`/posts/${post.id}`}>
-              <a className="flex justify-center">
-                <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-full mt-8">
-                  <h1 className="text-xl">{post.title}</h1>
-                  <p className="text-md font-extralight mt-4">
-                    author: {post.user_email}
-                  </p>
-                </div>
-              </a>
-            </Link>
+      <div className="h-screen">
+        {/* Posts */}
+        {posts.map((post) => (
+          <div key={post.id} className="flex justify-center w-full">
+            <div className="w-2/3">
+              <Link href={`/posts/${post.id}`}>
+                <a className="flex justify-center">
+                  <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-full mt-8">
+                    <h1 className="text-xl">{post.title}</h1>
+                    <p className="text-md font-extralight mt-4">
+                      author: {post.user_email}
+                    </p>
+                  </div>
+                </a>
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </Layout>
   );
 };
