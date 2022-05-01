@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "../utils/client";
 // displays essays stored in supabase
 
-// FIXME: scroll doesn't work?
 // TODO: make sign in its own component
 // TODO: stay signed in
 
