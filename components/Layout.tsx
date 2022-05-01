@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { supabase } from "../utils/client";
 
 export interface LayoutProps {
@@ -18,10 +19,9 @@ const Layout = ({
   title = "This is the default title",
 }: LayoutProps) => {
   const [user, setUser] = useState(null);
-  const [magicLink, setMagicLink] = useState(false);
-  const [email, setEmail] = useState("");
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const router = useRouter();
 
+  // check if user is loggedin
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(async () => {
       checkUser();
@@ -32,30 +32,14 @@ const Layout = ({
     };
   }, []);
 
-  async function checkUser() {
+  const checkUser = async () => {
     const user = supabase.auth.user();
     setUser(user);
-    console.log(user);
-  }
-
-  const onClick = () => {
-    setMagicLink(true);
+    // console.log(user)
   };
 
-  const handleSubmit = async (event) => {
-    // don't submit unless event is explicitly handled
-    event.preventDefault();
-    if (!email) return;
-
-    setMagicLink(false);
-
-    const { error } = await supabase.auth.signIn({ email });
-
-    if (error) {
-      alert(error.message);
-    } else {
-      setHasSubmitted(true);
-    }
+  const onClick = () => {
+    router.push("/sign-in");
   };
 
   return (
@@ -77,7 +61,7 @@ const Layout = ({
             <Link href="/">
               <a
                 onClick={onClick}
-                className="flex items-center space-x-2 text-slate-800 text-lg border-2 rounded-sm px-2"
+                className="flex items-center space-x-2 text-slate-800 text-lg border-2 rounded-sm px-2 hover:border-blue-400 hover:text-blue-400"
               >
                 <span className="">Start Writing</span>
               </a>
@@ -105,37 +89,8 @@ const Layout = ({
             </div>
           )}
         </nav>
-        {magicLink && !user ? (
-          <div className="mx-auto border-2 border-blue-400 w-1/3 p-4 rounded-sm">
-            <form
-              onSubmit={handleSubmit}
-              className=" bg-white w-full rounded-sm"
-            >
-              <input
-                type="email"
-                autoComplete="email"
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="email@gmail.com"
-                className="border-2 p-1 mb-2"
-              />
-              <button
-                type="submit"
-                className="ml-4 py-1 px-2 border-2 rounded-sm border-blue-200 bg-blue-100 hover:bg-blue-200"
-              >
-                send
-              </button>
-              <div className="border-b border-2 border-blue-200"></div>
-              <p className="font-extralight mt-2">Sign in with magic link</p>
-            </form>
-          </div>
-        ) : hasSubmitted && !user ? (
-          <div className="mx-auto border-2 border-blue-400 w-1/3 p-6 rounded-sm">
-            <p className="font-extralight">Please check your email to login</p>
-          </div>
-        ) : (
-          children
-        )}
+
+        {children}
       </header>
     </div>
   );
