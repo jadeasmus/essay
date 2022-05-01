@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { supabase } from "../utils/client";
 // displays essays stored in supabase
 
-// FIXME: link is larger than container
 // FIXME: scroll doesn't work?
 // TODO: make sign in its own component
 // TODO: stay signed in
@@ -39,16 +38,20 @@ const IndexPage = () => {
     <Layout title="Essay">
       {/* Posts */}
       {posts.map((post) => (
-        <Link key={post.id} href={`/posts/${post.id}`}>
-          <a className="flex justify-center">
-            <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-2/3 mt-8">
-              <h1 className="text-xl">{post.title}</h1>
-              <p className="text-md font-extralight mt-4">
-                author: {post.user_email}
-              </p>
-            </div>
-          </a>
-        </Link>
+        <div key={post.id} className="flex justify-center w-full">
+          <div className="w-2/3">
+            <Link href={`/posts/${post.id}`}>
+              <a className="flex justify-center">
+                <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-full mt-8">
+                  <h1 className="text-xl">{post.title}</h1>
+                  <p className="text-md font-extralight mt-4">
+                    author: {post.user_email}
+                  </p>
+                </div>
+              </a>
+            </Link>
+          </div>
+        </div>
       ))}
     </Layout>
   );
