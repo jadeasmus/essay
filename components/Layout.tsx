@@ -10,10 +10,6 @@ export interface LayoutProps {
   title?: string;
 }
 
-async function signOut() {
-  const { error } = await supabase.auth.signOut();
-}
-
 const Layout = ({
   children,
   title = "This is the default title",
@@ -50,7 +46,7 @@ const Layout = ({
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header className="">
-        <nav className="p-8 flex mb-5">
+        <nav className="p-8 flex">
           <Link href="/">
             <a className="flex items-center text-slate-800 text-3xl tracking-widest font-light">
               ESSAY
@@ -71,14 +67,6 @@ const Layout = ({
               <Link href="/create-post">
                 <a className="flex items-center space-x-2 bg-slate-500 text-white text-lg rounded-sm px-2">
                   <span>Contribute</span>
-                </a>
-              </Link>
-              <Link href="/">
-                <a
-                  onClick={signOut}
-                  className="flex items-center space-x-2 text-slate-800 text-lg hover:text-slate-600"
-                >
-                  <span>Logout</span>
                 </a>
               </Link>
               <Link href="/account">

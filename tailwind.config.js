@@ -4,7 +4,17 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        slider: "slider 5s linear forwards",
+      },
+      keyframes: {
+        slider: {
+          "0%": { width: "0%" },
+          "4.1%": { width: "4.1%" },
+        },
+      },
+    },
   },
   plugins: [],
 };
