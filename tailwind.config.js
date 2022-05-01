@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        slider: "slider 5s linear forwards",
+        slider: "slider 4s linear forwards",
       },
       keyframes: {
         slider: {

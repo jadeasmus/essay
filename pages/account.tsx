@@ -33,11 +33,26 @@ export default function account() {
     fetchPosts();
   };
 
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+  };
+
   return (
     <Layout title="Account">
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <div className="fixed top-0 left-0 h-screen border-r border-blue-200 w-1/6 shadow-lg">
+        <Link href="/">
+          <a
+            onClick={signOut}
+            className="fixed top-32 left-8 text-slate-800 text-lg hover:border-b-2 hover:border-blue-400 hover:animate-slider"
+          >
+            <span>Logout</span>
+          </a>
+        </Link>
+      </div>
+      {/* Posts */}
       {posts.map((post, index) => (
-        <div key={index} className="flex justify-center w-full">
+        <div key={index} className="flex justify-end w-5/6">
           <div className="w-2/3 relative">
             <Link href={`./posts/${post.id}`}>
               <a className="flex justify-center">
@@ -50,6 +65,7 @@ export default function account() {
                 </div>
               </a>
             </Link>
+            {/* delete */}
             <div className="absolute bottom-3 right-5">
               <button
                 className="border-2 border-blue-400 text-blue-400 rounded-sm px-2 hover:text-white hover:bg-blue-400"
@@ -58,6 +74,7 @@ export default function account() {
                 Delete
               </button>
             </div>
+            {/* edit */}
             <div className="absolute bottom-3 right-24">
               <Link href={`./edit/${post.id}`}>
                 <a className="px-2 hover:text-blue-400">Edit</a>
