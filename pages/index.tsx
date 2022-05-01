@@ -13,8 +13,17 @@ const IndexPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // fetch posts in realtime
   useEffect(() => {
     fetchPosts();
+    const realtime = () => {
+      const mySubscription = supabase
+        .from("posts")
+        .on("*", () => fetchPosts())
+        .subscribe();
+      return () => supabase.removeSubscription(mySubscription);
+    };
+    realtime();
   }, []);
 
   const fetchPosts = async () => {
