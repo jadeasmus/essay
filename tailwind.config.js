@@ -11,7 +11,7 @@ module.exports = {
       keyframes: {
         slider: {
           "0%": { width: "0%" },
-          "4.1%": { width: "4.1%" },
+          "100%": { width: "100%" },
         },
       },
     },

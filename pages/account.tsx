@@ -44,7 +44,7 @@ export default function account() {
         <Link href="/">
           <a
             onClick={signOut}
-            className="fixed top-32 left-8 text-slate-800 text-lg hover:border-b-2 hover:border-blue-400 hover:animate-slider"
+            className="fixed top-32 left-8 max-w-fit text-slate-800 text-lg hover:border-b-2 hover:border-blue-400 hover:animate-slider"
           >
             <span>Logout</span>
           </a>
