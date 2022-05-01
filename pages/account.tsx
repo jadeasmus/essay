@@ -3,15 +3,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { supabase } from "../utils/client";
 import Layout from "../components/Layout";
-import Sidebar from "../components/Sidebar";
 
 export default function account() {
   const [posts, setPosts] = useState([]);
   const [account, setAccount] = useState(null);
 
   useEffect(() => {
+    if (!posts) return;
     fetchPosts();
-  });
+  }, []);
 
   const fetchPosts = async () => {
     const user = supabase.auth.user();
@@ -41,6 +41,7 @@ export default function account() {
     <Layout title="Account">
       {/* <Sidebar /> */}
       <div className="fixed top-0 left-0 h-screen border-r border-blue-200 w-1/6 shadow-lg">
+        {/* <p>{account.user_email}</p> */}
         <Link href="/">
           <a
             onClick={signOut}
