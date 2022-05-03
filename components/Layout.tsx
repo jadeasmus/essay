@@ -48,7 +48,7 @@ const Layout = ({
       <header className="">
         <nav className="p-8 flex">
           <Link href="/">
-            <a className="flex items-center cursor-pointer text-slate-800 text-3xl tracking-widest font-light">
+            <a className="flex items-center cursor-pointer text-slate-800 text-3xl tracking-widest font-light z-10">
               ESSAY
             </a>
           </Link>

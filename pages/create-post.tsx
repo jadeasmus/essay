@@ -36,6 +36,8 @@ export default function createPost() {
     router.push(`/posts/${data.id}`); // changes url to match post
   };
 
+  const saveDraft = async () => {};
+
   return (
     <Layout title="New Post">
       <div className="mx-10">
@@ -57,9 +59,16 @@ export default function createPost() {
         <button
           type="button"
           onClick={createNewPost}
-          className="text-lg bg-slate-200 px-2 py-1 rounded-sm"
+          className="text-lg text-white bg-blue-400 px-2 py-1 rounded-sm hover:bg-blue-500"
         >
           Create Post
+        </button>
+        <button
+          type="button"
+          onClick={createNewPost}
+          className="text-lg ml-4 text-slate-800 hover:text-slate-600"
+        >
+          Save as draft
         </button>
       </div>
     </Layout>

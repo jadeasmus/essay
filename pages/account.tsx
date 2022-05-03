@@ -40,7 +40,7 @@ export default function account() {
   return (
     <Layout title="Account">
       {/* <Sidebar /> */}
-      <div className="fixed top-0 left-0 h-screen border-r border-blue-200 w-1/6 shadow-lg">
+      <div className="fixed top-0 left-0 h-screen border-r border-blue-200 w-1/6 shadow-lg z-0">
         {/* <p>{account.user_email}</p> */}
         <Link href="/">
           <a
