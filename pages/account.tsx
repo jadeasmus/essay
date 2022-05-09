@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { supabase } from "../utils/client";
 import Layout from "../components/Layout";
+import Profile from "../components/Profile";
 
 export default function account() {
   const [posts, setPosts] = useState([]);
-  const [account, setAccount] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     if (!posts) return;
@@ -16,8 +17,8 @@ export default function account() {
   const fetchPosts = async () => {
     const user = supabase.auth.user();
     // save user data
-    setAccount(user);
-    console.log("account: ", account);
+    setUser(user);
+    console.log("user: ", user);
     // get user's essays
     const { data } = await supabase
       .from("posts")
@@ -41,7 +42,6 @@ export default function account() {
     <Layout title="Account">
       {/* <Sidebar /> */}
       <div className="fixed top-0 left-0 h-screen border-r border-blue-200 w-1/6 shadow-lg z-0">
-        {/* <p>{account.user_email}</p> */}
         <Link href="/">
           <a
             onClick={signOut}
@@ -52,6 +52,7 @@ export default function account() {
         </Link>
       </div>
       {/* Posts */}
+      <Profile user={user} />
       {posts.map((post, index) => (
         <div key={index} className="flex justify-end w-5/6">
           <div className="w-2/3 relative">
