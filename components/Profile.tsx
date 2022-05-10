@@ -44,6 +44,7 @@ export default function Profile({ user }) {
       const updates = {
         id: user.id,
         username,
+        bio,
         updated_at: new Date(),
       };
 
@@ -54,6 +55,8 @@ export default function Profile({ user }) {
     } catch (error) {
       console.log("error in updateProfile", error.message);
     }
+
+    // getProfile();
   }
 
   const handleEdit = () => {
@@ -61,32 +64,45 @@ export default function Profile({ user }) {
   };
 
   console.log(username);
+  console.log(bio);
   console.log(user.email);
 
   return (
     <div className="flex justify-end w-5/6 mb-10">
       <div className="flex px-4 w-2/3">
-        {!editing && username ? (
-          <h1 className="text-xl grow">{username}</h1>
-        ) : !editing && !username ? (
-          <h1 className="text-xl grow">{user.email}</h1>
-        ) : !editing && bio ? (
-          <p>{bio}</p>
+        {!editing && !username ? (
+          <>
+            <h1 className="text-xl grow">{user.email}</h1>
+            <p className="block">{bio}</p>
+          </>
+        ) : !editing && username ? (
+          <>
+            <h1 className="text-xl grow">{username}</h1>
+            <p>{bio}</p>
+          </>
         ) : editing ? (
-          <form className="flex flex-col space-y-5 grow">
+          <form className="flex flex-col grow">
+            <label htmlFor="username" className="text-xs font-extralight">
+              username
+            </label>
             <input
+              id="username"
               type="username"
               placeholder="Enter a username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border-b border-blue-400 focus:text-blue-400 focus:outline-none"
+              className="w-full text-xl pl-1 pt-3 border-b border-blue-400 focus:text-blue-400 focus:outline-none"
             />
+            <label htmlFor="bio" className="text-xs font-extralight pt-5">
+              profile description
+            </label>
             <input
+              id="bio"
               type="bio"
               placeholder="Say something about yourself"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full border-b border-blue-400 focus:text-blue-400 focus:outline-none"
+              className="w-full text-xl pl-1 pt-3 border-b border-blue-400 focus:text-blue-400 focus:outline-none"
             />
           </form>
         ) : null}
