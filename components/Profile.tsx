@@ -6,8 +6,8 @@ import React from "react";
 export default function Profile({ user }) {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
-  const [website, setWebsite] = useState("");
-  const [avatarURL, setAvatarURL] = useState(null);
+  // const [website, setWebsite] = useState("");
+  // const [avatarURL, setAvatarURL] = useState(null);
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
@@ -73,12 +73,12 @@ export default function Profile({ user }) {
         {!editing && !username ? (
           <>
             <h1 className="text-xl grow">{user.email}</h1>
-            <p className="block">{bio}</p>
+            <p className="text-lg font-light">{bio}</p>
           </>
         ) : !editing && username ? (
           <>
             <h1 className="text-xl grow">{username}</h1>
-            <p>{bio}</p>
+            <p className="text-lg font-light">{bio}</p>
           </>
         ) : editing ? (
           <form className="flex flex-col grow">
@@ -117,7 +117,7 @@ export default function Profile({ user }) {
           </button>
         ) : (
           <button
-            className="text-extralight text-sm border-blue-400 rounded-sm"
+            className="text-extralight text-sm hover:text-blue-400"
             onClick={(e) => {
               e.preventDefault();
               updateProfile();
