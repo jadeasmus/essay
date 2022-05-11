@@ -71,15 +71,15 @@ export default function Profile({ user }) {
     <div className="flex justify-end w-5/6 mb-10">
       <div className="flex px-4 w-2/3">
         {!editing && !username ? (
-          <>
+          <div>
             <h1 className="text-xl grow">{user.email}</h1>
             <p className="text-lg font-light">{bio}</p>
-          </>
+          </div>
         ) : !editing && username ? (
-          <>
+          <div className="grow">
             <h1 className="text-xl grow">{username}</h1>
-            <p className="text-lg font-light">{bio}</p>
-          </>
+            <p className="text-lg font-light pt-5">{bio}</p>
+          </div>
         ) : editing ? (
           <form className="flex flex-col grow">
             <label htmlFor="username" className="text-xs font-extralight">
@@ -106,26 +106,30 @@ export default function Profile({ user }) {
             />
           </form>
         ) : null}
-        <div className="px-20"></div>
+        <div className="grow"></div>
         {!editing ? (
-          <button
-            onClick={handleEdit}
-            type="button"
-            className="text-extralight text-sm"
-          >
-            Edit Profile
-          </button>
+          <div className="">
+            <button
+              onClick={handleEdit}
+              type="button"
+              className="max-h-fit text-extralight text-sm hover:text-blue-400"
+            >
+              <span className="">Edit Profile</span>
+            </button>
+          </div>
         ) : (
-          <button
-            className="text-extralight text-sm hover:text-blue-400"
-            onClick={(e) => {
-              e.preventDefault();
-              updateProfile();
-              setEditing(false);
-            }}
-          >
-            <span>Save Changes</span>
-          </button>
+          <div className="">
+            <button
+              className="text-extralight max-h-fit text-sm hover:text-blue-400"
+              onClick={(e) => {
+                e.preventDefault();
+                updateProfile();
+                setEditing(false);
+              }}
+            >
+              <span>Save Changes</span>
+            </button>
+          </div>
         )}
       </div>
     </div>
