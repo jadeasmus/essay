@@ -9,11 +9,13 @@ import { supabase } from "../utils/client";
 
 const IndexPage = () => {
   const [posts, setPosts] = useState([]);
+  const [profiles, setProfiles] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // fetch posts in realtime
   useEffect(() => {
     fetchPosts();
+    getProfiles();
     const realtime = () => {
       const mySubscription = supabase
         .from("posts")
@@ -30,8 +32,30 @@ const IndexPage = () => {
     setLoading(false);
   };
 
-  if (loading) return <div className="text-lg">Loading...</div>;
-  if (!posts.length) return <div className="text-lg">No posts</div>;
+  const getProfiles = async () => {
+    let { data } = await supabase.from("profiles").select();
+    if (data) {
+      setProfiles(data);
+      // profiles.map((profile) => console.log(profile));
+    } else {
+      console.log("getProfile didnt work");
+    }
+  };
+
+  // profiles.map((profile) => console.log(profile));
+
+  if (loading)
+    return (
+      <Layout title="Essay">
+        <div className="text-lg mt-20 flex justify-center">Loading...</div>
+      </Layout>
+    );
+  if (!posts.length)
+    return (
+      <Layout title="Essay">
+        <div className="text-lg mt-20 flex justify-center">No posts</div>
+      </Layout>
+    );
 
   return (
     <Layout title="Essay">
@@ -44,9 +68,15 @@ const IndexPage = () => {
                 <a className="flex justify-center">
                   <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-full mt-8">
                     <h1 className="text-xl">{post.title}</h1>
-                    <p className="text-md font-extralight mt-4">
-                      author: {post.user_email}
-                    </p>
+                    {/* {post.user_id === profiles.id ? (
+                      <p className="text-md font-extralight mt-4">
+                        author: {profiles.username}
+                      </p>
+                    ) : (
+                      <p className="text-md font-extralight mt-4">
+                        author: {post.user_email}
+                      </p>
+                    )} */}
                   </div>
                 </a>
               </Link>

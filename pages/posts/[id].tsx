@@ -19,7 +19,11 @@ export default function Post({ post }) {
         <div className="flex justify-center">
           <div className="bg-slate-200 rounded-sm w-2/3 py-4">
             <h1 className="text-center text-3xl">{post.title}</h1>
-            <p className="font-extralight text-lg mt-2 pl-8">{`author: ${post.user_email}`}</p>
+            {post.username ? (
+              <p className="font-extralight text-lg mt-2 pl-8">{`author: ${post.username}`}</p>
+            ) : (
+              <p className="font-extralight text-lg mt-2 pl-8">{`author: ${post.user_email}`}</p>
+            )}
             <p className="font-extralight text-lg mt-2 pl-8">{`date: ${
               post.inserted_at.split("T")[0]
             }`}</p>
