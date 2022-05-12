@@ -33,7 +33,6 @@ const IndexPage = () => {
     let { data } = await supabase.from("profiles").select();
     if (data) {
       setProfiles(data);
-      // profiles.map((profile) => console.log(profile));
     } else {
       console.log("getProfile didnt work");
     }
@@ -69,24 +68,28 @@ const IndexPage = () => {
                         profile.username !== null
                       ) {
                         return (
-                          <p
+                          <Link
                             key={profile.id}
-                            className="text-md font-extralight mt-4"
+                            href={`/profiles/${profile.id}`}
                           >
-                            author: {profile.username}
-                          </p>
+                            <span className="mt-3 block text-md font-extralight hover:text-blue-400">
+                              {profile.username}
+                            </span>
+                          </Link>
                         );
                       } else if (
                         post.user_id === profile.id &&
                         profile.username === null
                       ) {
                         return (
-                          <p
+                          <Link
                             key={profile.id}
-                            className="text-md font-extralight mt-4"
+                            href={`/profiles/${profile.id}`}
                           >
-                            author: {post.user_email}
-                          </p>
+                            <span className="mt-3 block text-md font-extralight hover:text-blue-400">
+                              {post.user_email}
+                            </span>
+                          </Link>
                         );
                       }
                     })}
