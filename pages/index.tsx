@@ -4,12 +4,9 @@ import { useState, useEffect } from "react";
 import { supabase } from "../utils/client";
 // displays essays stored in supabase
 
-// TODO: make sign in its own component
-// TODO: stay signed in
-
 const IndexPage = () => {
   const [posts, setPosts] = useState([]);
-  const [profiles, setProfiles] = useState(null);
+  const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // fetch posts in realtime
@@ -42,8 +39,6 @@ const IndexPage = () => {
     }
   };
 
-  // profiles.map((profile) => console.log(profile));
-
   if (loading)
     return (
       <Layout title="Essay">
@@ -68,15 +63,33 @@ const IndexPage = () => {
                 <a className="flex justify-center">
                   <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-full mt-8">
                     <h1 className="text-xl">{post.title}</h1>
-                    {/* {post.user_id === profiles.id ? (
-                      <p className="text-md font-extralight mt-4">
-                        author: {profiles.username}
-                      </p>
-                    ) : (
-                      <p className="text-md font-extralight mt-4">
-                        author: {post.user_email}
-                      </p>
-                    )} */}
+                    {profiles.map((profile) => {
+                      if (
+                        post.user_id === profile.id &&
+                        profile.username !== null
+                      ) {
+                        return (
+                          <p
+                            key={profile.id}
+                            className="text-md font-extralight mt-4"
+                          >
+                            author: {profile.username}
+                          </p>
+                        );
+                      } else if (
+                        post.user_id === profile.id &&
+                        profile.username === null
+                      ) {
+                        return (
+                          <p
+                            key={profile.id}
+                            className="text-md font-extralight mt-4"
+                          >
+                            author: {post.user_email}
+                          </p>
+                        );
+                      }
+                    })}
                   </div>
                 </a>
               </Link>
