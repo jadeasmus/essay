@@ -8,11 +8,14 @@ const IndexPage = () => {
   const [posts, setPosts] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userID, setUserID] = useState(null);
 
   // fetch posts in realtime
   useEffect(() => {
     fetchPosts();
     getProfiles();
+    const user = supabase.auth.user().id;
+    setUserID(user);
     const realtime = () => {
       const mySubscription = supabase
         .from("posts")
@@ -67,16 +70,27 @@ const IndexPage = () => {
                         post.user_id === profile.id &&
                         profile.username !== null
                       ) {
-                        return (
-                          <Link
-                            key={profile.id}
-                            href={`/profiles/${profile.id}`}
-                          >
-                            <span className="w-fit text-md font-extralight hover:text-blue-400">
-                              {profile.username}
-                            </span>
-                          </Link>
-                        );
+                        if (profile.id === userID) {
+                          // if user clicks own username it routes to their account page
+                          return (
+                            <Link key={profile.id} href={`/account`}>
+                              <span className="w-fit text-md font-extralight hover:text-blue-400">
+                                {profile.username}
+                              </span>
+                            </Link>
+                          );
+                        } else {
+                          return (
+                            <Link
+                              key={profile.id}
+                              href={`/profiles/${profile.id}`}
+                            >
+                              <span className="w-fit text-md font-extralight hover:text-blue-400">
+                                {profile.username}
+                              </span>
+                            </Link>
+                          );
+                        }
                       } else if (
                         post.user_id === profile.id &&
                         profile.username === null
