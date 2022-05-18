@@ -61,7 +61,7 @@ const IndexPage = () => {
               <Link href={`/posts/${post.id}`}>
                 <a className="flex justify-center">
                   <div className="text-center rounded-sm bg-slate-200 px-2 py-4 w-full mt-8">
-                    <h1 className="text-xl">{post.title}</h1>
+                    <h1 className="text-xl mb-3">{post.title}</h1>
                     {profiles.map((profile) => {
                       if (
                         post.user_id === profile.id &&
@@ -72,7 +72,7 @@ const IndexPage = () => {
                             key={profile.id}
                             href={`/profiles/${profile.id}`}
                           >
-                            <span className="mt-3 block text-md font-extralight hover:text-blue-400">
+                            <span className="w-fit text-md font-extralight hover:text-blue-400">
                               {profile.username}
                             </span>
                           </Link>
@@ -86,7 +86,7 @@ const IndexPage = () => {
                             key={profile.id}
                             href={`/profiles/${profile.id}`}
                           >
-                            <span className="mt-3 block text-md font-extralight hover:text-blue-400">
+                            <span className="w-fit block text-md font-extralight hover:text-blue-400">
                               {post.user_email}
                             </span>
                           </Link>
