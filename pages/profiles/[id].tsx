@@ -47,7 +47,7 @@ export default function profiles({ profile }) {
       {posts.map((post, index) => (
         <div key={index} className="flex justify-center">
           <div className="w-1/2">
-            <Link href={`./posts/${post.id}`}>
+            <Link href={`/posts/${post.id}`}>
               <a className="flex justify-center">
                 <div className="flex rounded-sm bg-slate-100 hover:shadow-md px-4 py-4 w-full mt-8 pb-16">
                   <h1 className="text-md">{post.title}</h1>
