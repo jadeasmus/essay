@@ -7,6 +7,7 @@ import { supabase } from "../../utils/client";
 export default function profiles({ profile }) {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
+  const [title, setTitle] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +23,12 @@ export default function profiles({ profile }) {
       .filter("user_id", "eq", user.id);
 
     setPosts(data);
+
+    if (profile?.username) {
+      setTitle(profile.username);
+    } else {
+      setTitle(user.email);
+    }
   };
 
   // initially until page finishes rendering
@@ -30,7 +37,7 @@ export default function profiles({ profile }) {
   }
 
   return (
-    <Layout title={`Essay | ${profile.username}`}>
+    <Layout title={`Essay | ${title}`}>
       <div className="flex justify-center w-full mb-10">
         {!profile.username && !profile.bio ? (
           <div className="">
