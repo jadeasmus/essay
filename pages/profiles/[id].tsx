@@ -11,12 +11,17 @@ export default function profiles({ profile }) {
   const router = useRouter();
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
     const user = supabase.auth.user();
     setUser(user);
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    fetchPosts();
+    console.log(user);
+  }, [user]);
+
+  const fetchPosts = async () => {
     const { data } = await supabase
       .from("posts")
       .select("*")
