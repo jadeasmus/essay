@@ -2,16 +2,33 @@ import Layout from "../../components/Layout";
 import { useRouter } from "next/router";
 import { supabase } from "../../utils/client";
 import ReactMarkdown from "react-markdown";
+import Link from "next/link";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Post({ post }) {
   const router = useRouter();
+  const [username, setUsername] = useState(null);
 
   // initially until page finishes rendering
   if (router.isFallback) {
     return <div className="text-lg">Loading...</div>;
   }
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    const { data } = await supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", post.user_id)
+      .single();
+
+    if (data.username) setUsername(data.username);
+    // console.log(username);
+  };
 
   return (
     <Layout title={`Essay | ${post.title}`}>
@@ -19,8 +36,16 @@ export default function Post({ post }) {
         <div className="flex justify-center">
           <div className="bg-slate-200 rounded-sm w-2/3 py-4">
             <h1 className="text-center text-3xl">{post.title}</h1>
-            <p className="font-extralight text-lg mt-2 pl-8">{`author: ${post.user_email}`}</p>
-            <p className="font-extralight text-lg mt-2 pl-8">{`date: ${
+            {username ? (
+              <Link href={`/profiles/${post.user_id}`}>
+                <span className="cursor-pointer hover:text-blue-400 font-extralight text-lg mt-2 pl-8">{`${username}`}</span>
+              </Link>
+            ) : (
+              <Link href={`/profiles/${post.user_id}`}>
+                <span className="cursor-pointer hover:text-blue-400 font-extralight text-lg mt-2 pl-8">{`${post.user_email}`}</span>
+              </Link>
+            )}
+            <p className="font-extralight text-lg mt-2 pl-8">{`${
               post.inserted_at.split("T")[0]
             }`}</p>
           </div>
