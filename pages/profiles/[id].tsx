@@ -7,18 +7,19 @@ import { supabase } from "../../utils/client";
 export default function profiles({ profile }) {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
-  const [title, setTitle] = useState("");
   const router = useRouter();
 
   useEffect(() => {
+    if (!profile) return;
     const user = supabase.auth.user();
     setUser(user);
-  }, []);
+  }, [profile]);
 
   useEffect(() => {
     if (!user) return;
     fetchPosts();
-    console.log(user);
+    console.log("user: ", user);
+    console.log("profile: ", profile);
   }, [user]);
 
   const fetchPosts = async () => {
@@ -28,12 +29,6 @@ export default function profiles({ profile }) {
       .filter("user_id", "eq", user.id);
 
     setPosts(data);
-
-    if (profile?.username) {
-      setTitle(profile.username);
-    } else {
-      setTitle(user.email);
-    }
   };
 
   // initially until page finishes rendering
@@ -42,16 +37,18 @@ export default function profiles({ profile }) {
   }
 
   return (
-    <Layout title={`Essay | ${title}`}>
+    <Layout
+      title={profile?.username ? `${profile?.username}` : `${user?.email}`}
+    >
       <div className="flex justify-center w-full mb-10">
-        {!profile.username && !profile.bio ? (
+        {!profile?.username && !profile?.bio ? (
           <div className="">
-            <h1 className="text-xl">{user.email}</h1>
+            <h1 className="text-xl">{user?.email}</h1>
           </div>
         ) : (
           <div>
-            <h1 className="text-xl">{profile.username}</h1>
-            <p className="text-lg font-light mt-2">{profile.bio}</p>
+            <h1 className="text-xl">{profile?.username}</h1>
+            <p className="text-lg font-light mt-2">{profile?.bio}</p>
           </div>
         )}
       </div>
@@ -83,6 +80,7 @@ export async function getStaticPaths() {
   const paths = data.map((profile) => ({
     params: { id: JSON.stringify(profile.id) },
   }));
+  if (error) console.log("getStaticPaths error: ", error);
   return {
     paths,
     fallback: true, // enabled for dynamic SSG page generation
@@ -96,6 +94,7 @@ export async function getStaticProps({ params }) {
     .select()
     .filter("id", "eq", id)
     .single();
+  // console.log("params", data);
   return {
     props: {
       profile: data,
